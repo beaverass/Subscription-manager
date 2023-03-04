@@ -16,5 +16,5 @@ const start = async () => {
         console.log(e)
     }
 }
-
+console.log("popa")
 start()
