@@ -10,7 +10,7 @@ const User = sequelize.define('user', {
 
 const Subscription = sequelize.define('subscription', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, require: true, unique: true},
+    name: {type: DataTypes.STRING, require: true},
     description: {type: DataTypes.STRING, require: true},
     pricePerMonth: {type: DataTypes.DOUBLE, require: true}
 })

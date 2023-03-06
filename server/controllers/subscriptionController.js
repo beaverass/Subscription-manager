@@ -1,15 +1,47 @@
 const {Subscription} = require('../models/models')
 const ApiError = require('../error/ApiError')
+const { Op } = require("sequelize");
 
 class SubscriptionController {
-    async create(req, res){
+
+    async create(req, res, next){
         const {name, description, pricePerMonth, userId} = req.body
-        const subscription = await Subscription.create({name, description, pricePerMonth, userId})
-        return res.json(subscription)
+        if(!name || !description || !pricePerMonth || !userId){
+            return next(ApiError.badRequest("Введены не все параметры"))
+        }
+        const sub = await Subscription.findAll({
+            where: {
+                userId
+            }
+        });
+
+        let contains = false;
+
+        for (let i = 0; i < sub.length; i++) {
+            if(sub[i].name === name){
+                contains = true;
+            }
+        }
+
+        if(contains){
+            next(ApiError.badRequest("Уже существует"))
+        }else{
+            let subscription = await Subscription.create({name, description, pricePerMonth, userId})
+            return res.json({subscription})
+        }
+
+
+
     }
 
-    async getAllByUserId(req, res){
+    async getAllByUserId(req, res, next){
+        const {userId} = req.body
+        if(!userId){
+            return next(ApiError.badRequest("Введены не все параметры"))
+        }
 
+        const subscriptions = await Subscription.findAll({where: {userId}})
+        res.json({subscriptions})
     }
 }
 
