@@ -30,7 +30,7 @@ class SubscriptionController {
             return res.json({subscription})
         }
 
-
+        //todo create fornt and try this app
 
     }
 
