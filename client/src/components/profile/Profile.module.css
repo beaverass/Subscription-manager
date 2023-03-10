@@ -1,0 +1,12 @@
+.profile {
+    grid-area: n;
+    background-color: red;
+    border-radius: 8px;
+    margin-top: 15px;
+    width: 300px;
+}
+
+.innerProfile{
+    padding: 21px 16px 0px;
+}
+
